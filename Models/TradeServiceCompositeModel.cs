@@ -6,8 +6,8 @@ namespace HedgeBot.Models
 {
     public class TradeServiceCompositeModel : IDisposable
     {
-        public ITradeService _service;
-        public SocketInitiator _socket;
+        public readonly ITradeService _service;
+        public readonly SocketInitiator _socket;
         public TradeServiceCompositeModel(TradeService tradeService, SocketInitiator socketInitiator)
         {
             _socket = socketInitiator;
@@ -17,11 +17,8 @@ namespace HedgeBot.Models
 
         public void Dispose()
         {
-           _socket.Stop();
+            _socket.Stop();
         }
-        ~TradeServiceCompositeModel()
-        {
-            Dispose();
-        }
+       
     }
 }
