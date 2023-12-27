@@ -6,6 +6,5 @@ namespace HedgeBot.Interfaces
     {
         void NewOrder(string id, string symbol, char side,int amount);
         void GetMarketData(string symbol);
-        ITradeService CreateTradeService(string senderCompId);
     }
 }
