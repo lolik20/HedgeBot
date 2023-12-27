@@ -18,7 +18,7 @@ namespace HedgeBot.Controllers
         public IActionResult Test([FromQuery] string senderCompId)
         {
             using var tradeServiceModel = _tradeFactory.CreateTradeService(senderCompId);
-            tradeServiceModel._service.NewOrder("1", "EURUSD", Side.BUY, 9999);
+            tradeServiceModel._service.NewOrder("my_custom_id", "EURUSD", Side.BUY, 9999);
             return Ok();
         }
         //[HttpGet("data")]
