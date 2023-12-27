@@ -1,4 +1,5 @@
 ﻿using HedgeBot.Interfaces;
+using HedgeBot.Models;
 using QuickFix.Transport;
 
 namespace HedgeBot.Services
@@ -6,7 +7,7 @@ namespace HedgeBot.Services
     public class TradeFactory : ITradeFactory
     {
 
-        public Tuple<ITradeService, SocketInitiator> CreateTradeService(string senderCompId)
+        public TradeServiceCompositeModel CreateTradeService(string senderCompId)
         {
             string config;
             using TextReader configReader = File.OpenText("./tradeclient.cfg");
@@ -18,7 +19,7 @@ namespace HedgeBot.Services
             TradeService tradeService = new TradeService();
             QuickFix.Transport.SocketInitiator initiator = new QuickFix.Transport.SocketInitiator(tradeService, storeFactory, settings);
 
-            return new Tuple<ITradeService, SocketInitiator>(tradeService,initiator);
+            return new TradeServiceCompositeModel(tradeService, initiator);
         }
     }
 }

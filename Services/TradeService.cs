@@ -13,7 +13,7 @@ namespace HedgeBot.Services
     {
         private Session _session = null;
 
-
+       
         public void OnCreate(SessionID sessionID)
         {
             _session = Session.LookupSession(sessionID);
@@ -42,11 +42,6 @@ namespace HedgeBot.Services
             _session.Send(message);
         }
 
-        //public async Task<bool> CancelOrder()
-        //{
-        //    var message = new OrderCancelRequest();
-        //}
-
         public void OnLogon(SessionID sessionID)
         {
             Console.WriteLine("Logon - " + sessionID.ToString());
@@ -64,6 +59,7 @@ namespace HedgeBot.Services
         public void ToApp(QuickFix.Message message, SessionID sessionId)
         {
             Console.WriteLine("OUT: " + message);
+            
         }
 
     }

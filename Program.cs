@@ -1,4 +1,5 @@
 using HedgeBot.Interfaces;
+using HedgeBot.Models;
 using HedgeBot.Services;
 using QuickFix;
 
