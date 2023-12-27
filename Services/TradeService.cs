@@ -1,7 +1,9 @@
 ﻿using HedgeBot.Interfaces;
 using QuickFix;
+using QuickFix.Config;
 using QuickFix.Fields;
 using QuickFix.FIX44;
+using System.Reflection.PortableExecutable;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace HedgeBot.Services
@@ -9,12 +11,19 @@ namespace HedgeBot.Services
     public class TradeService : MessageCracker, IApplication, ITradeService
     {
         private Session _session = null;
-        public TradeService()
+
+        public ITradeService CreateTradeService(string senderCompId)
         {
-            QuickFix.SessionSettings settings = new QuickFix.SessionSettings("./tradeclient.cfg");
+            string config;
+            using TextReader configReader = File.OpenText("./tradeclient.cfg");
+            config = configReader.ReadToEnd();
+            config = config.Replace("$senderCompId", senderCompId);
+            using TextReader stringReader = new StringReader(config);
+            QuickFix.SessionSettings settings = new QuickFix.SessionSettings(stringReader);
             QuickFix.IMessageStoreFactory storeFactory = new QuickFix.FileStoreFactory(settings);
             QuickFix.Transport.SocketInitiator initiator = new QuickFix.Transport.SocketInitiator(this, storeFactory, settings);
             initiator.Start();
+            return this;
         }
         public void OnCreate(SessionID sessionID)
         {

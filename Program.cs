@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<ITradeService, TradeService>();
-builder.Services.AddSingleton<IApplication,TradeService>();
+builder.Services.AddTransient<ITradeService, TradeService>();
+builder.Services.AddTransient<IApplication,TradeService>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

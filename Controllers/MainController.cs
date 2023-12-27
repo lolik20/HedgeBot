@@ -6,25 +6,27 @@ namespace HedgeBot.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class MainController: ControllerBase
+    public class MainController : ControllerBase
     {
-        private readonly ITradeService _tradeService;
+        private readonly ITradeService _tradeFactory;
+
         public MainController(ITradeService tradeService)
         {
-            _tradeService = tradeService;
+            _tradeFactory = tradeService;
         }
         [HttpGet("test")]
-        public IActionResult Test()
+        public IActionResult Test([FromQuery] string senderCompId)
         {
-            _tradeService.NewOrder("1","EURUSD", Side.BUY,9999);
+            var _tradeService = _tradeFactory.CreateTradeService(senderCompId);
+            _tradeService.NewOrder("1", "EURUSD", Side.BUY, 9999);
             return Ok();
         }
-        [HttpGet("data")]
-        public IActionResult Data()
-        {
-            _tradeService.GetMarketData("");
-            return Ok();
-        }
+        //[HttpGet("data")]
+        //public IActionResult Data()
+        //{
+        //    _tradeService.GetMarketData("");
+        //    return Ok();
+        //}
 
     }
 }
