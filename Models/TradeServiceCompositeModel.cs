@@ -7,7 +7,7 @@ namespace HedgeBot.Models
     public class TradeServiceCompositeModel : IDisposable
     {
         public readonly ITradeService _service;
-        public readonly SocketInitiator _socket;
+        private readonly SocketInitiator _socket;
         public TradeServiceCompositeModel(TradeService tradeService, SocketInitiator socketInitiator)
         {
             _socket = socketInitiator;
